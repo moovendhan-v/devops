@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  tor:
+    image: dperson/torproxy
+    ports:
+      - "9050:9050"
+    cap_add:
+      - NET_ADMIN
+    restart: always
+
+  ubuntu:
+    image: ubuntu:latest
+    command: tail -f /dev/null  # Keep the container running
+    depends_on:
+      - tor
+    environment:
+      - http_proxy=http://tor:9050
+      - https_proxy=http://tor:9050
+      - ftp_proxy=http://tor:9050
+      - no_proxy=localhost,127.0.0.1
+    cap_drop:
+      - ALL
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
