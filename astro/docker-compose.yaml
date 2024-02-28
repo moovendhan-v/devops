@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  astro:
+    image: astro:latest
+    ports:
+      - "8083:8080"
+    volumes:
+      - .:/app
+    environment:
+      - NODE_ENV=development
+      - PORT=8083
+    command: npm start
+    depends_on:
+      - database
+
+  database:
+    image: mongo
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:

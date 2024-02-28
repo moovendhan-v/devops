@@ -18,7 +18,7 @@ services:
     image: wordpress
     restart: always
     ports:
-      - 8080:80
+      - 8088:80
     environment:
       WORDPRESS_DB_HOST: db
       WORDPRESS_DB_USER: wpuser
